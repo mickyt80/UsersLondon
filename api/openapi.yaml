@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Users Close To London Service
+  description: "Users who are living in London, or whose current coordinates are within\
+    \ certian miles of London."
+  contact:
+    name: Mihaela Dediu
+    email: mickyt@gmail.com
+  license:
+    name: My own license
+    url: https://www.owd.license/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: "http://{host}:{port}/{basepath}"
+  description: The Dev API server
+  variables:
+    host:
+      description: Dev server
+      default: localhost
+    port:
+      enum:
+      - "7777"
+      - "7117"
+      default: "7777"
+    basepath:
+      default: v1
+paths:
+  /users/{distance}:
+    get:
+      description: "People who are living in London, or whose current coordinates\
+        \ are within certian miles of London."
+      operationId: usersDistanceGET
+      parameters:
+      - name: distance
+        in: path
+        description: Distance to London
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 1
+          type: integer
+          format: int64
+          example: 15
+      responses:
+        "200":
+          description: A list of all found users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+        "400":
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    User:
+      required:
+      - id
+      - location
+      type: object
+      properties:
+        id:
+          type: number
+          format: integer
+          example: 4
+        firstName:
+          type: string
+          example: FirstName
+        lastName:
+          type: string
+          example: LastName
+        email:
+          type: string
+          example: user@example.com
+        ipAddress:
+          type: string
+          example: 192.57.242.100
+        location:
+          $ref: '#/components/schemas/GeoLocation'
+      example:
+        firstName: FirstName
+        lastName: LastName
+        ipAddress: 192.57.242.100
+        location:
+          latitude: 34.003135
+          longitude: -117.7228641
+        id: 4
+        email: user@example.com
+    GeoLocation:
+      required:
+      - latitude
+      - longitude
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: float
+          example: 34.003135
+        longitude:
+          type: number
+          format: float
+          example: -117.7228641
+      example:
+        latitude: 34.003135
+        longitude: -117.7228641
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Error Message
