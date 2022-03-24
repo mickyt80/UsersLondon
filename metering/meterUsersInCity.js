@@ -1,7 +1,6 @@
 const client = require('prom-client');
 const buckets = require('./buckets');
 const initializeCounter = require('./counter/initializeCounter');
-const modifyErrorCodes = require('./counter/modifyErrorCodes');
 
 const usersGetHistogram = new client.Histogram({
   name: 'cityUsers_get_time',
@@ -25,7 +24,7 @@ module.exports = () => {
     stopTimer();
     usersGetCounter.inc({
       outcome,
-      status: modifyErrorCodes(outcome, status, errorCodes),
+      status,
     });
   };
 };
