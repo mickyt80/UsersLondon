@@ -12,5 +12,7 @@ const options = {
 const expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
 const app = expressAppConfig.getApp();
 
+// prometheus default metrics
 collect('default_');
+
 module.exports = app;

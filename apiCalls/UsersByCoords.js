@@ -2,6 +2,11 @@ const axios = require('axios');
 const haversine = require('haversine');
 const coordsUsersMeter = require('../metering/meterUsersByCoords');
 
+/**
+ * Returns users within a distance from a centre point specified by a latitude and a longitude.
+ * @param {*} radiusParam - distance from the centre point in miles.
+ * @returns a list of User objects.
+ */
 const getCoordsUsers = async function getCoordsUsers(radiusParam) {
   const usersInRadius = [];
   const radius = radiusParam || 50;

@@ -1,6 +1,11 @@
 const axios = require('axios');
 const cityUsersMeter = require('../metering/meterUsersInCity');
 
+/**
+ * Returns users who live in a city given as parameter.
+ * @param {*} cityParam - the city (e.g London).
+ * @returns a list of User objects living in that city.
+ */
 const getUsersInCity = async function getUsersInCity(cityParam) {
   const city = cityParam || 'London';
 

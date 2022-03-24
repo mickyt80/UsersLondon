@@ -5,6 +5,14 @@ const usersByCoords = require('../apiCalls/UsersByCoords');
 
 const logger = require('../utils/logger');
 
+/**
+ * Controller - returns the merged list of users living in a city
+ *              or within a distance from the city in miles.
+ * @param {*} req - http request
+ * @param {*} res - http response
+ * @param {*} _next - next route
+ * @param {*} distance - distance in miles
+ */
 module.exports.usersGET = async function usersGET(req, res, _next, distance) {
   try {
     logger.info(`GET users in radius: ${distance}.`);

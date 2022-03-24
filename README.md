@@ -11,6 +11,7 @@ CENTRE_LONG = City centre longitude
 CENTRE_CITY = City centre
 ALL_USERS_URL = backend API called to retrieve users by coordinates distance 
 CITY_USERS_URL = backend API called to retrieve users living within the city
+PORT = app port
 ```
 
 ### Running the server
@@ -44,16 +45,17 @@ Postman directory contains a Postman collection with a set of tests for the API.
 
 ### Monitoring
 
-Prometheus is used to expose metrics on /metrics endpoint.
+Prometheus is used to expose metrics on /metrics endpoint:
+http://localhost:7117/v1/metrics
 
 ### Logging
 Debug.log file contains the application logging.
 
 ### API documentation
-To view the Swagger UI interface:
+Swagger UI documentation:
 
 ```
-open http://localhost:7117/docs
+http://localhost:7117/docs
 ```
 
 ### Contact
