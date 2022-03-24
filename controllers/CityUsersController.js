@@ -1,16 +1,17 @@
-const utils = require('../utils/writer.js');
+const utils = require('../utils/writer');
 
 const usersInCity = require('../apiCalls/UsersInCity');
 const usersByCoords = require('../apiCalls/UsersByCoords');
 
 const logger = require('../utils/logger');
 
-module.exports.usersGET = async function usersGET(req, res, next, distance) {
+module.exports.usersGET = async function usersGET(req, res, _next, distance) {
   try {
+    logger.info(`GET users in radius: ${distance}.`);
     // call usersInCity
     const usersCity = await usersInCity.getUsersInCity('London');
     // call  usersByCoords
-    const usersCoords = await usersByCoords.getCoordsUsers();
+    const usersCoords = await usersByCoords.getCoordsUsers(distance);
 
     const map = new Map();
     if (usersCity && usersCity.length > 0) {
