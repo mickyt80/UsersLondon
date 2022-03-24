@@ -8,8 +8,10 @@ const logger = require('../utils/logger');
 module.exports.usersGET = async function usersGET(req, res, _next, distance) {
   try {
     logger.info(`GET users in radius: ${distance}.`);
+
+    const centreCity = process.env.CENTRE_CITY || 'London';
     // call usersInCity
-    const usersCity = await usersInCity.getUsersInCity('London');
+    const usersCity = await usersInCity.getUsersInCity(centreCity);
     // call  usersByCoords
     const usersCoords = await usersByCoords.getCoordsUsers(distance);
 
