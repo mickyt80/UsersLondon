@@ -67,7 +67,7 @@ describe('Test - Get users close to a location by coordinates ', () => {
   });
 
   it('Should return an array of users on success calls', async () => {
-    const allUsers = [
+    const allUsers = {data: [
       {
         id: 1,
         first_name: 'Maurise',
@@ -86,7 +86,7 @@ describe('Test - Get users close to a location by coordinates ', () => {
         latitude: 44.439663,
         longitude: 26.096306,
       },
-    ];
+    ]};
 
     process.env = {};
     process.env.CENTRE_LAT = 51.5072;
@@ -109,7 +109,7 @@ describe('Test - Get users close to a location by coordinates ', () => {
     process.env.ALL_USERS_URL = 'http:some.url.com/users';
     axios.get.mockResolvedValueOnce(undefined);
 
-    const allUsers = [
+    const allUsers = {data: [
       {
         id: 1,
         first_name: 'Maurise',
@@ -117,7 +117,7 @@ describe('Test - Get users close to a location by coordinates ', () => {
         email: 'mshieldon0@squidoo.com',
         ip_address: '192.57.232.111',
       },
-    ];
+    ]};
 
     process.env = {};
     process.env.CENTRE_LAT = 51.5072;

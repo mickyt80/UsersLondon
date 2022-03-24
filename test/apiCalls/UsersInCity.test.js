@@ -46,7 +46,7 @@ describe('Test - Get users living in a city', () => {
     process.env = {};
     process.env.CITY_USERS_URL = 'https://some.url.com';
 
-    const cityUsersList = [
+    const cityUsersList = {data: [
       {
         id: 135,
         first_name: 'Mechelle',
@@ -65,7 +65,7 @@ describe('Test - Get users living in a city', () => {
         latitude: -6.7098551,
         longitude: 111.3479498,
       },
-    ];
+    ]};
     axios.get.mockResolvedValueOnce(cityUsersList);
 
     expect.assertions(1);

@@ -1,4 +1,5 @@
 const axios = require('axios');
+const cityUsersMeter = require('../metering/meterUsersInCity');
 
 const getUsersInCity = async function getUsersInCity(cityParam) {
   const city = cityParam || 'London';
@@ -9,10 +10,13 @@ const getUsersInCity = async function getUsersInCity(cityParam) {
     throw Error('CITY_USERS_URL not defined in env.');
   }
 
+  const meter = cityUsersMeter();
   try {
     const cityUsers = await axios.get(`${cityUsersUrl}/${city}/users`);
-    if (cityUsers) return cityUsers;
+    meter('success', 'ok');
+    if (cityUsers && cityUsers.data) return cityUsers.data;
   } catch (err) {
+    meter('fail', 'api_error');
     throw Error('Backend service error.');
   }
   return [];

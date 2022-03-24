@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "node index.js",
+    "start": "env $(cat .env.example | grep -v ^# | xargs) nodemon index.js",
     "test": "jest --coverage",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix"
@@ -21,12 +21,16 @@
     "haversine": "^1.1.1",
     "jest": "^27.5.1",
     "js-yaml": "^3.3.0",
-    "oas3-tools": "^2.2.3"
+    "oas3-tools": "^2.2.3",
+    "prom-client": "^14.0.1",
+    "winston": "^3.6.0"
   },
   "devDependencies": {
     "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.25.4"
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   },
   "jest": {
     "clearMocks": true,

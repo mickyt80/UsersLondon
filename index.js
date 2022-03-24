@@ -1,19 +1,7 @@
-const path = require('path');
 const http = require('http');
-
-const oas3Tools = require('oas3-tools');
+const app = require('./app');
 
 const serverPort = 7117;
-
-// swaggerRouter configuration
-const options = {
-  routing: {
-    controllers: path.join(__dirname, './controllers'),
-  },
-};
-
-const expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
-const app = expressAppConfig.getApp();
 
 // Initialize the Swagger middleware
 http.createServer(app).listen(serverPort, () => {

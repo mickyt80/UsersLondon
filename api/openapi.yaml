@@ -8,7 +8,7 @@ info:
     email: mickyt@gmail.com
   license:
     name: My own license
-    url: https://www.owd.license/licenses/LICENSE-2.0.html
+    url: https://www.own.license/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
 - url: "http://{host}:{port}/{basepath}"
@@ -29,7 +29,7 @@ paths:
     get:
       description: "People who are living in London, or whose current coordinates\
         \ are within certian miles of London."
-      operationId: usersDistanceGET
+      operationId: usersGET
       parameters:
       - name: distance
         in: path
@@ -64,7 +64,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      x-swagger-router-controller: Default
+      x-swagger-router-controller: CityUsersController
+  /metrics:
+    get:
+      operationId: metrics
+      responses:
+        "200":
+          description: Prometheus metrics
+      x-swagger-router-controller: metrics
 components:
   schemas:
     User:

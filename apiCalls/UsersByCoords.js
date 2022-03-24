@@ -1,5 +1,6 @@
 const axios = require('axios');
 const haversine = require('haversine');
+const coordsUsersMeter = require('../metering/meterUsersByCoords');
 
 const getCoordsUsers = async function getCoordsUsers(radiusParam) {
   const usersInRadius = [];
@@ -23,10 +24,12 @@ const getCoordsUsers = async function getCoordsUsers(radiusParam) {
   }
 
   // call the backend service
+  const meter = coordsUsersMeter();
   try {
     const allUsers = await axios.get(allUsersUrl);
-    if (allUsers) {
-      allUsers.forEach((user) => {
+    meter('success', 'ok');
+    if (allUsers && allUsers.data) {
+      allUsers.data.forEach((user) => {
         if (user.latitude && user.longitude) {
           const points = [{
             latitude: user.latitude,
@@ -46,6 +49,7 @@ const getCoordsUsers = async function getCoordsUsers(radiusParam) {
       });
     }
   } catch (err) {
+    meter('fail', 'api_error');
     throw Error('Backend service error.');
   }
   return usersInRadius;
