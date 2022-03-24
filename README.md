@@ -38,6 +38,17 @@ docker run -dit -p 7117:7117 -e CENTRE_LAT=<city_lat> -e CENTRE_LONG=<city_long>
 npm test
 ```
 
+### Postman tests
+
+Postman directory contains a Postman collection with a set of tests for the API.
+
+### Monitoring
+
+Prometheus is used to expose metrics on /metrics endpoint.
+
+### Logging
+Debug.log file contains the application logging.
+
 ### API documentation
 To view the Swagger UI interface:
 

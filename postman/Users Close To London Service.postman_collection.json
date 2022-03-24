@@ -1,0 +1,379 @@
+{
+	"info": {
+		"_postman_id": "056cd843-2a92-44b1-8a56-2a411899713e",
+		"name": "Users Close To London Service",
+		"description": "Users who are living in London, or whose current coordinates are within certian miles of London.\n\nContact Support:\n Name: Mihaela Dediu\n Email: mickyt@gmail.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Check service is responding 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check distance path variable - correct replies\", function () {",
+							"    var allPathVars = pm.request.url.variables.all();",
+							"    allPathVars.forEach ((pathVar) => {",
+							"        if (pathVar.key === 'distance') {",
+							"            if (typeof(pathVar.value) === 'string') {",
+							"               pm.response.to.have.status(400);  ",
+							"            } else if (typeof(pathVar.value) === 'number')",
+							"                if (pathVar.value > 0 && Number.isInteger(path.value)){",
+							"                    pm.response.to.have.status(200);  ",
+							"                } else {",
+							"                    pm.response.to.have.status(400);   ",
+							"                }",
+							"        }",
+							"    });",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type header is application/json\", () => {",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 3000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);",
+							"});",
+							"",
+							"pm.test(\"Test successfully gets a user entry\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).greaterThan(0);",
+							"    pm.expect(jsonData[0].id).not.equal(null);",
+							"    pm.expect(jsonData[0].latitude).not.equal(null);",
+							"    pm.expect(jsonData[0].longitude).not.equal(null);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users/:distance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						":distance"
+					],
+					"variable": [
+						{
+							"key": "distance",
+							"value": "50",
+							"description": "(Required) Distance to London"
+						}
+					]
+				},
+				"description": "People who are living in London, or whose current coordinates are within certian miles of London."
+			},
+			"response": [
+				{
+					"name": "A list of all found users",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:distance",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":distance"
+							],
+							"variable": [
+								{
+									"key": "host",
+									"value": "{{host}}",
+									"description": "Dev server"
+								},
+								{
+									"key": "port",
+									"value": "{{port}}",
+									"description": " (This can only be one of 7777,7117)"
+								},
+								{
+									"key": "basepath",
+									"value": "{{basepath}}"
+								},
+								{
+									"key": "distance",
+									"value": "15",
+									"description": "(Required) Distance to London"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "[\n  {\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"ipAddress\": \"192.57.242.100\",\n    \"location\": {\n      \"latitude\": 34.003135,\n      \"longitude\": -117.7228641\n    },\n    \"id\": 4,\n    \"email\": \"user@example.com\"\n  },\n  {\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"ipAddress\": \"192.57.242.100\",\n    \"location\": {\n      \"latitude\": 34.003135,\n      \"longitude\": -117.7228641\n    },\n    \"id\": 4,\n    \"email\": \"user@example.com\"\n  }\n]"
+				},
+				{
+					"name": "Validation errors",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:distance",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":distance"
+							],
+							"variable": [
+								{
+									"key": "host",
+									"value": "{{host}}",
+									"description": "Dev server"
+								},
+								{
+									"key": "port",
+									"value": "{{port}}",
+									"description": " (This can only be one of 7777,7117)"
+								},
+								{
+									"key": "basepath",
+									"value": "{{basepath}}"
+								},
+								{
+									"key": "distance",
+									"value": "15",
+									"description": "(Required) Distance to London"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Error Message\"\n}"
+				},
+				{
+					"name": "Internal Server Error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/:distance",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":distance"
+							],
+							"variable": [
+								{
+									"key": "host",
+									"value": "{{host}}",
+									"description": "Dev server"
+								},
+								{
+									"key": "port",
+									"value": "{{port}}",
+									"description": " (This can only be one of 7777,7117)"
+								},
+								{
+									"key": "basepath",
+									"value": "{{basepath}}"
+								},
+								{
+									"key": "distance",
+									"value": "15",
+									"description": "(Required) Distance to London"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Error Message\"\n}"
+				}
+			]
+		},
+		{
+			"name": "metrics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type header is text/plain\", () => {",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.contains('text/plain');",
+							"});",
+							"",
+							"pm.test(\"Check the cityUsers_get are listed in metrics\", () => {",
+							"    pm.expect(pm.response.text()).to.include('cityUsers_get');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/metrics",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"metrics"
+					],
+					"variable": [
+						{
+							"key": "host",
+							"value": "{{host}}",
+							"description": "Dev server"
+						},
+						{
+							"key": "port",
+							"value": "{{port}}",
+							"description": " (This can only be one of 7777,7117)"
+						},
+						{
+							"key": "basepath",
+							"value": "{{basepath}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Prometheus metrics",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/metrics",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"metrics"
+							],
+							"variable": [
+								{
+									"key": "host",
+									"value": "{{host}}",
+									"description": "Dev server"
+								},
+								{
+									"key": "port",
+									"value": "{{port}}",
+									"description": " (This can only be one of 7777,7117)"
+								},
+								{
+									"key": "basepath",
+									"value": "{{basepath}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost",
+			"type": "any",
+			"description": {
+				"content": "Dev server",
+				"type": "text/plain"
+			}
+		},
+		{
+			"key": "port",
+			"value": "7117",
+			"type": "any",
+			"description": {
+				"content": " (This can only be one of 7777,7117)",
+				"type": "text/plain"
+			}
+		},
+		{
+			"key": "basepath",
+			"value": "v1",
+			"type": "any",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			}
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://{{host}}:{{port}}/{{basepath}}",
+			"type": "string"
+		}
+	]
+}

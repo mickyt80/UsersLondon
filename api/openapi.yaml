@@ -21,7 +21,7 @@ servers:
       enum:
       - "7777"
       - "7117"
-      default: "7777"
+      default: "7117"
     basepath:
       default: v1
 paths:
